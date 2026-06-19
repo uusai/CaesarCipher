@@ -6,15 +6,12 @@
 using namespace std;
 
 class CaesarCipher{
-    int Value;
+    static int Value;
 public:
-    CaesarCipher( int value){
-        Value=value;
-    }
-    string Encrypt(string text){
+    static string Encrypt(string text, int Value){
         string Output;
         for(int i = 0; i < text.size(); i++){
-            if(text[i] == ' ' || text[i] == '.' || text[i] == ','){
+            if(text[i] == ' ' || text[i] == '.' || text[i] == ',' || text[i] == '!' || text[i] == '?'){
                 Output.push_back(text[i]);
                 continue;
             } 
@@ -41,7 +38,7 @@ public:
         }
         return Output;
     }
-    string Decipher(string text){
+    static string Decipher(string text, int Value){
         string Output;
         for(int i = 0; i < text.size(); i++){
             if(text[i] == ' ' || text[i] == '.' || text[i] == ','){
@@ -74,6 +71,19 @@ public:
 };
 
 int main(){
-    CaesarCipher a(6);
-    cout << a.Decipher(a.Encrypt("za 2"));
+    cout << CaesarCipher::Encrypt("Hello World! 3232", 3);
+    // while(true){
+    //     string Command;
+    //     cin >> Command;
+    //     if(Command == "/Exit") return 0;
+    //     else if(Command == "/Encrypt"){
+    //         cout << '\n' << "Input text: ";
+    //         string text;
+    //         cin >> text;
+    //         cout << "Input value: ";
+    //         int value;
+    //         cin >> value;
+    //         cout << '\n' << CaesarCipher::Encrypt(text,value);
+    //     }
+    // }
 }
