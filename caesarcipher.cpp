@@ -5,6 +5,27 @@
 
 using namespace std;
 
+struct LetterAndValue{
+    int Value;
+    char Letter;
+    LetterAndValue operator++(int){
+        Value++;
+    }
+    LetterAndValue(){
+        Value = 0;
+        Letter = '-';
+    }
+    char Set_Letter(char Letter){
+        this->Letter = Letter;
+    }
+    int Get_Value(){
+        return Value;
+    }
+    char Get_Letter(){
+        return Letter;
+    }
+};
+
 class CaesarCipher{
     static int Value;
 public:
@@ -70,8 +91,29 @@ public:
     }
 };
 
+class AutoEncrypt{
+public:
+    AutoEncrypt(string text){
+        vector<LetterAndValue> value = {};
+        for(int i = 0; i < text.size(); i++){
+            for(int j = 0; j < value.size(); j++){
+                if(value[j].Get_Letter() == text[j]){
+                    value[j]++;
+                    break;
+                }
+                else{ //Переделать так, чтобы была проверка if прошел массив и не нашел нужную букву
+                    value.emplace_back();
+                    value[value.size()-1]++;
+                    value[value.size()-1].Set_Letter(text[i]);
+                }
+            }
+        }
+    }
+};
+
 int main(){
     cout << CaesarCipher::Encrypt("Hello World! 3232", 3);
+    
     // while(true){
     //     string Command;
     //     cin >> Command;
