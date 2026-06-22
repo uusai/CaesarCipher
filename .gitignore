@@ -3,3 +3,9 @@ caesarcipher.ilk
 caesarcipher.obj
 caesarcipher.pdb
 vc140.pdb
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+build/Debug/outDebug
+a.out
