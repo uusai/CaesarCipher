@@ -11,18 +11,14 @@ private:
     int Value;
     char Letter;
 public:
-    LetterAndValue& operator++(int){
+    LetterAndValue &operator++(int){
         LetterAndValue temp = *this;
         Value++;
         return *this;
     }
-    LetterAndValue(){
-        Value = 0;
-        Letter = '-';
-    }
-    bool Set_Letter(char Letter){
+    LetterAndValue(char Letter){
+        Value = 1;
         this->Letter = Letter;
-        return true;
     }
     int Get_Value() const{
         return Value;
@@ -112,14 +108,13 @@ public:
                 }
             }
             if(Check == false){
-                    value.emplace_back();
-                    value[value.size()-1]++;
-                    value[value.size()-1].Set_Letter(temp);
+                    value.emplace_back(temp);
             }
         }
         sort(value.begin(), value.end(), [](const LetterAndValue& a, const LetterAndValue& b) {
             return a.Get_Value() > b.Get_Value(); 
         });
+        ConsiderVariant();
     }
     void ConsiderVariant(){
         for(int i = 0; i < MostPopularLetter.size(); i++){
@@ -130,25 +125,12 @@ public:
     vector<int> GetLikelyShift(){
         return LikelyShift;
     }
-
-    void PrintLikelyShift(){
-        for(int i = 0; i < LikelyShift.size(); i++){
-            cout << LikelyShift[i] << ' ';
-        }
-    }
-    void Print(){
-        for(int i = 0; i < value.size(); i++){
-            value[i].Print();
-            cout << '\n';
-        }
-    }
 };
 
 int main(){
     string text = "the quick brown fox jumps over the lazy dog while the sun sets behind the distant hills. many people enjoy walking through the forest during autumn when the leaves turn golden and red. some prefer to stay inside and read a good book near a warm fire instead of venturing outside. either way the weather often determines how someone spends their free time on a calm evening.";
     string Crypttext = CaesarCipher::Encrypt(text,7);
     AutoEncrypt A(Crypttext);
-    A.ConsiderVariant();
     for(int i = 0; i < A.GetLikelyShift().size(); i++){
         cout << CaesarCipher::Decipher(Crypttext, A.GetLikelyShift()[i]) << '\n';
     }
