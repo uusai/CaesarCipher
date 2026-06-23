@@ -42,6 +42,7 @@ public:
             } 
             int a = text[i];
             for(int j = 0; j < Value; j++){
+                a++;
                 if(isalpha(!text[i])){
                     if(a > 57) a = 48;
                 }
@@ -51,7 +52,6 @@ public:
                 if(islower(text[i])){
                     if(a > 122) a = 97;
                 }
-                a++;
             }
             Output.push_back(static_cast<char>(a));
         }
@@ -60,7 +60,7 @@ public:
     static string Decipher(string text, int Value){
         string Output;
         for(int i = 0; i < text.size(); i++){
-            if(text[i] == ' ' || text[i] == '.' || text[i] == ','){
+            if(text[i] == ' ' || text[i] == '.' || text[i] == ',' || text[i] == '!' || text[i] == '?'){
                 Output.push_back(text[i]);
                 continue;
             } 
@@ -86,6 +86,11 @@ public:
             Output.push_back(static_cast<char>(a));
         }
         return Output;
+    }
+    static int NumberConvertion(int Number){
+        int rem = Number % 26;
+        if (rem < 0) rem += 26;
+        return rem;
     }
 };
 
@@ -118,7 +123,7 @@ public:
     }
     void ConsiderVariant(){
         for(int i = 0; i < MostPopularLetter.size(); i++){
-            LikelyShift.emplace_back(static_cast<int>(value[i].Get_Letter())-static_cast<int>(MostPopularLetter[i]));
+            LikelyShift.emplace_back(CaesarCipher::NumberConvertion(static_cast<int>(value[i].Get_Letter())-static_cast<int>(MostPopularLetter[i])));
         }
     }
 
@@ -130,8 +135,9 @@ public:
 int main(){
     string text = "the quick brown fox jumps over the lazy dog while the sun sets behind the distant hills. many people enjoy walking through the forest during autumn when the leaves turn golden and red. some prefer to stay inside and read a good book near a warm fire instead of venturing outside. either way the weather often determines how someone spends their free time on a calm evening.";
     string Crypttext = CaesarCipher::Encrypt(text,7);
-    AutoEncrypt A(Crypttext);
-    for(int i = 0; i < A.GetLikelyShift().size(); i++){
-        cout << CaesarCipher::Decipher(Crypttext, A.GetLikelyShift()[i]) << '\n';
-    }
+    cout << Crypttext;
+    //AutoEncrypt A(Crypttext);
+    //for(int i = 0; i < A.GetLikelyShift().size(); i++){
+    //    cout << CaesarCipher::Decipher(Crypttext, A.GetLikelyShift()[i]) << '\n';
+    //}
 }
