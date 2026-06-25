@@ -56,7 +56,7 @@ public:
             int a = text[i];
             for(int j = 0; j < Value; j++){
                 a++;
-                if(isalpha(!text[i])){
+                if(!isalpha(text[i])){
                     if(a > 57) a = 48;
                 }
                 if(isupper(text[i])){
@@ -80,7 +80,7 @@ public:
             int a = text[i];
             for(int j = 0; j < Value; j++){
                 a--;
-                if(isalpha(!text[i])){
+                if(!isalpha(text[i])){
                     if(a < 48) a = 57;
                 }
                 if(isupper(text[i])){
